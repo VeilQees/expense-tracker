@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses</title>
+</head>
+<body>
+
+<h2>Общая сумма</h2>
+<h1 th:text="${total} + ' ₽'">0 ₽</h1>
+<h2>Добавить расход</h2>
+
+<form th:action="@{/add}" method="post" th:object="${expenseRequest}">
+    <select th:field="*{category}">
+        <option th:each="c : ${categories}"
+                th:value="${c.name()}"
+                th:text="${c.title}">
+        </option>
+    </select>
+
+
+    <input type="number" step="0.01" th:field="*{amount}" required>
+    <button type="submit">Добавить</button>
+</form>
+
+<hr>
+
+<h2>Сортировка</h2>
+
+<a href="/?sort=date">По дате</a> |
+<a href="/?sort=amount">По сумме</a> |
+<a href="/?sort=category">По категории</a>
+
+<hr>
+
+<h2>Расходы</h2>
+
+<table border="1">
+    <tr>
+        <th>Дата</th>
+        <th>Категория</th>
+        <th>Сумма</th>
+        <th></th>
+    </tr>
+
+    <tr th:each="e : ${expenses}">
+        <td th:text="${e.createdAt}"></td>
+        <td th:text="${e.category}"></td>
+        <td th:text="${e.amount}"></td>
+        <td>
+            <form th:action="@{/delete/{id}(id=${e.id})}" method="post">
+                <button type="submit">❌</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

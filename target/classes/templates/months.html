@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Расходы по месяцам</h2>
+
+<table>
+  <tr>
+    <th>Год</th>
+    <th>Месяц</th>
+    <th>Сумма</th>
+  </tr>
+  <tr th:each="m : ${months}">
+    <td th:text="${m[0]}"></td>
+    <td th:text="${m[1]}"></td>
+    <td th:text="${m[2]}"></td>
+  </tr>
+</table>
+
+<a href="/">Назад</a>
+
+</body>
+</html>
